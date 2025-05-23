@@ -7,3 +7,9 @@
 > git add xxx.xx  -> adiciona arquivos especificos
 
 > git commit -m "xxx" -> realiza o commit (gravar um ponto no espaço)
+
+LEMBRE-SE
+
+() Tuplas
+[] Listas
+{} Dicionário
