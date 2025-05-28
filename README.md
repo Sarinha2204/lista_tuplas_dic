@@ -1,3 +1,5 @@
+EX L/T/D = Exercícios Listas, Tuplas e Dicionários
+
 > git init -> para iniciar repositório (somenta a 1° vez)
 
 > git status -> verifica como esta o projeto
