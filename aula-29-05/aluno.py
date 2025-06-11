@@ -2,6 +2,7 @@ alunos = []
 
 def cadastrar_aluno(nome, matricula, notas):
     aluno = {'nome': nome, 'matricula': matricula, 'notas': notas}
+    print(aluno)
     alunos.append(aluno)
     
 def listar_alunos():
