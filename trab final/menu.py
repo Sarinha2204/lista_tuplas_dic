@@ -129,14 +129,14 @@ def Relatorio():
     listar_participantes()
 '''
 
-from clear import clear
+#from clear import clear
 from participante import Cadastrar_participante, listar_participantes, consultar_participante, remover_participante, atualizar_participante
-from evento import Cadastrar_evento, listar_eventos, consultar_evento, remover_evento, atualizar_evento, listar_participantes_por_evento, matricular_participante_evento
+from evento import Cadastrar_evento, listar_evento, consultar_evento, remover_evento, atualizar_evento, listar_participantes_por_evento#, matricular_participante_evento
 
 def Menu():
     while True:
-        clear()
-        print('            Menu Principal            ')
+        #clear()
+        print('            Menu Principal           ')
         print("1 - Cadastrar novo Participante")
         print("2 - Cadastrar novo Evento") 
         print("3 - Listar Eventos")
@@ -151,7 +151,7 @@ def Menu():
         elif op == 2:
             cadastrar_evento()
         elif op == 3:
-            listar_eventos()
+            listar_evento()
             input("Pressione Enter para continuar...")
         elif op == 4:
             listar_participantes()

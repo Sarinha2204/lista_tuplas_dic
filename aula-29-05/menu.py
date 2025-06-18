@@ -1,10 +1,11 @@
-from util import clear
+#from util import clear
 from aluno import cadastrar_aluno, listar_alunos
 from professor import cadastrar_professor, listar_professores
 from turma import cadastrar_turma, listar_turmas
 
 
 def Menu():
+    #clear()
     print('++++++++++++ Menu ++++++++++++')
     print("1 - Cadastrar")
     print("2 - Matricular") 
