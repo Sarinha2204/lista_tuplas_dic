@@ -1,6 +1,4 @@
-'''from clear import clear
-from participante import Cadastrar_participante, listar_participantes, consultar_participante
-from evento import Matricular, Consultar
+'''
 Para o participante:
 Código único de identificação (ID)
 Nome completo
@@ -152,13 +150,10 @@ def Menu():
             cadastrar_evento()
         elif op == 3:
             listar_evento()
-            input("Pressione Enter para continuar...")
         elif op == 4:
             listar_participantes()
-            input("Pressione Enter para continuar...")
         elif op == 5:
             listar_participantes_por_evento()
-            input("Pressione Enter para continuar...")
         elif op == 6:
             remover()
         elif op == 7:
@@ -166,7 +161,6 @@ def Menu():
         elif op == 8:
             consultar_participante_por_codigo()
         elif op == 0:
-            print("Saindo do sistema...")
             break
 
 def opcao(limite):
@@ -178,17 +172,15 @@ def opcao(limite):
             else:
                 print("Opção inválida, tente novamente.")
         except ValueError:
-            print("Entrada inválida. Digite um número.")
+            print("Entrada inválida. Digite apenas números.")
 
 def cadastrar_participante():
-    print('--- Cadastro de Participante ---')
+    print('            Cadastro de Participante            ')
     codigo = input("Digite o código único do participante: ").strip()
     nome = input("Digite o nome completo: ").strip()
     email = input("Digite o e-mail: ").strip()
-    preferencias = input("Digite as preferências temáticas (separadas por vírgula): ").strip().split(',')
-    preferencias = [p.strip() for p in preferencias if p.strip()]
     
-    sucesso = Cadastrar_participante(codigo, nome, email, preferencias)
+    sucesso = Cadastrar_participante(codigo, nome, email)
     if sucesso:
         print(f"Participante {nome} cadastrado com sucesso!")
     else:
@@ -196,18 +188,15 @@ def cadastrar_participante():
     input("Pressione Enter para continuar...")
 
 def cadastrar_evento():
-    print('--- Cadastro de Evento ---')
+    print('            Cadastro de Evento            ')
+    cod = input("Digite o código do evento: ").strip()
     nome = input("Digite o nome único do evento: ").strip()
-    data = input("Digite a data do evento (dd/mm/aaaa): ").strip()
-    tema = input("Digite o tema central do evento: ").strip()
-    local = input("Digite o local do evento (opcional): ").strip()
-    descricao = input("Digite uma breve descrição do evento: ").strip()
-    tipo = input("Digite o tipo do evento (workshop, palestra, maratona, etc.): ").strip()
+    tema = input("Digite o tema do evento: ").strip()
     limite = input("Digite o limite de participantes (deixe em branco se não houver): ").strip()
     limite = int(limite) if limite.isdigit() else None
     status = 'ativo' 
     
-    sucesso = Cadastrar_evento(nome, data, tema, local, descricao, tipo, limite, status)
+    sucesso = Cadastrar_evento(cod, nome, tema, limite, status, )
     if sucesso:
         print(f"Evento {nome} cadastrado com sucesso!")
     else:
@@ -215,29 +204,28 @@ def cadastrar_evento():
     input("Pressione Enter para continuar...")
 
 def remover():
-    print('--- Remover ---')
+    print('            Remover            ')
     print("1 - Remover Participante")
     print("2 - Remover Evento")
     print("0 - Voltar")
     op = opcao(2)
     if op == 1:
-        codigo = input("Digite o código do participante a remover: ").strip()
+        codigo = input("Digite o código do participante que deseja remover: ").strip()
         sucesso = remover_participante(codigo)
         if sucesso:
             print("Participante removido com sucesso.")
         else:
             print("Participante não encontrado.")
     elif op == 2:
-        nome = input("Digite o nome do evento a remover: ").strip()
+        nome = input("Digite o nome do evento que deseja remover: ").strip()
         sucesso = remover_evento(nome)
         if sucesso:
             print("Evento removido com sucesso.")
         else:
             print("Evento não encontrado.")
-    input("Pressione Enter para continuar...")
 
 def atualizar():
-    print('--- Atualizar ---')
+    print('            Atualizar            ')
     print("1 - Atualizar Participante")
     print("2 - Atualizar Evento")
     print("0 - Voltar")

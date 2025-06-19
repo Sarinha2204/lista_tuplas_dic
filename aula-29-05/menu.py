@@ -6,7 +6,7 @@ from turma import cadastrar_turma, listar_turmas
 
 def Menu():
     #clear()
-    print('++++++++++++ Menu ++++++++++++')
+    print('            Menu            ')
     print("1 - Cadastrar")
     print("2 - Matricular") 
     print("3 - Consultar")
