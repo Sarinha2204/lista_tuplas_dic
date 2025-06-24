@@ -129,7 +129,7 @@ def Relatorio():
 
 from clear import clear
 from participante import Cadastrar_participante, listar_participantes, consultar_participante, remover_participante, atualizar_participante, listar_participantes_por_evento
-from evento import Cadastrar_evento, listar_evento, consultar_evento, remover_evento, atualizar_evento, consultar_evento_por_codigo
+from evento import Cadastrar_evento, listar_evento, consultar_evento, remover_evento, atualizar_evento, consultar_eventos_por_status
 
 def Menu():
     while True:
@@ -163,7 +163,7 @@ def Menu():
         elif op == 8:
             consultar_participante_por_codigo()
         elif op == 9:
-            consultar_evento_por_codigo()
+            consultar_eventos_por_status()
         elif op == 0:
             break
 
@@ -284,17 +284,9 @@ def listar_participantes_por_evento():
     listar_participantes_por_evento(cod_evento)
     input("Pressione Enter para continuar...")
 
-def consultar_evento_por_codigo():
-    codigo = input("Digite o código do evento: ").strip()
-    evento = consultar_evento(codigo)
-    if evento:
-        print(f"Código: {evento['cod_evento']}")
-        print(f"Nome: {evento['nome']}")
-        print(f"Tema Central: {evento['tema_central']}")
-        print(f"Limite de Participantes: {evento.get('limite', 'Sem limite')}")
-        print(f"Status: {evento['status']}")
-    else:
-        print("Evento não encontrado.")
+def consultar_evento_por_status():
+    status = input("Digite o status do evento (ativo, cancelado): ").strip()
+    consultar_eventos_por_status(status)
     input("Pressione Enter para continuar...")
     clear()
 

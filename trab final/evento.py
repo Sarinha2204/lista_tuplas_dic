@@ -43,3 +43,12 @@ def listar_eventos_por_tema(tema_central):
         print(f"Eventos encontrados para o tema '{tema_central}':")
         for evento in eventos_filtrados:
             print(f" - {evento['nome']} (Código: {evento['cod_evento']})")
+
+def consultar_eventos_por_status(status):
+    eventos_filtrados = [evento for evento in eventos if evento['status'] == status]
+    if not eventos_filtrados:
+        print(f"Nenhum evento encontrado com o status: {status}")
+    else:
+        print(f"Eventos encontrados com o status '{status}':")
+        for evento in eventos_filtrados:
+            print(f" - {evento['nome']} (Código: {evento['cod_evento']})")
