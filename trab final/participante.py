@@ -1,12 +1,13 @@
 participantes = []
 
-def Cadastrar_participante(cod, nome, email):
-    participante = {'nome': nome, 'email': email, 'cod_participante': cod}
-    if consultar_participante(cod):  # Verifica se o código já existe
-        print(f"Participante com código {cod} já cadastrado.")
+def Cadastrar_participante(cod, nome, email, preferencias_tema):
+    participante = {'nome': nome, 'email': email, 'cod_participante': cod, 'preferencias_tema': preferencias_tema}
+    if consultar_participante(cod):
+        return False
     else:
-        participantes.append(participante)  # Adiciona apenas se o código for novo
-        print(f"Participante {nome} cadastrado com sucesso!")
+        participantes.append(participante)
+        return True
+        
 
 
 def listar_participantes():
@@ -14,8 +15,9 @@ def listar_participantes():
         print("Nenhum participante cadastrado.")
     else:
         print("Lista de Participantes:")
-        for i, participante in enumerate(participantes):
-            print(f"{i + 1}. Código: {participante['cod_participante']}, Nome: {participante['nome']}, email: {participante['email']}")
+        
+        for participante in participantes:
+            print(f"Código: {participante['cod_participante']}, Nome: {participante['nome']}, email: {participante['email']}, Preferências Temáticas: {participante['preferencias_tema']}")
 
 def consultar_participante(cod_participante):
     for participante in participantes:
@@ -49,4 +51,5 @@ def listar_participantes_por_evento(evento):
         print(f"Participantes encontrados para o evento '{evento}':")
         for participante in participantes_filtrados:
             print(f" - {participante['nome']} (Código: {participante['cod_participante']})")
-            
+            print(f"   E-mail: {participante['email']}")
+            print(f"   Preferências: {', '.join(participante['preferencias_tema'])}")

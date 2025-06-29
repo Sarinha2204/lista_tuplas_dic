@@ -1,16 +1,20 @@
 eventos = []
 
-def Cadastrar_evento(nome, cod_evento, tema_central, limite, status):
-    evento = {'nome': nome, 'cod_evento': cod_evento, 'tema_central': tema_central, 'limite': limite, 'status': status}
-    eventos.append(evento)
+def Cadastrar_evento(nome, cod_evento, tema_central, limite, status, data_evento):
+    evento = {'nome': nome, 'cod_evento': cod_evento, 'tema_central': tema_central, 'limite': limite, 'status': status, 'data_evento': data_evento}
+    if consultar_evento(cod_evento):
+        return False
+    else:
+        eventos.append(evento)
+        return True
     
 def listar_evento():
     if len(eventos) == 0:
         print("Nenhum evento cadastrado.")
     else:
         print("Lista de Eventos:")
-        for i, evento in enumerate(eventos):
-            print(f"{i + 1}. Nome: {evento['nome']}, Código: {evento['cod_evento']}")
+        for evento in eventos:
+            print(f" Código: {evento['cod_evento']}, Nome: {evento['nome']}, Tema Central: {evento['tema_central']}, Data de Realização do Evento: {evento['data_evento']}")
 def consultar_evento(cod_evento):
     for evento in eventos:
         if evento['cod_evento'] == cod_evento:
@@ -52,3 +56,16 @@ def consultar_eventos_por_status(status):
         print(f"Eventos encontrados com o status '{status}':")
         for evento in eventos_filtrados:
             print(f" - {evento['nome']} (Código: {evento['cod_evento']})")
+
+
+def cadastrar_participante_em_evento(cod_evento, cod_participante):
+    print('           Cadastrar Participante em Evento           ')
+    cod_evento = input("Digite o código do evento: ").strip()
+    cod_participante = input("Digite o código do participante: ").strip()
+    
+    sucesso = cadastrar_participante_em_evento(cod_evento, cod_participante)
+    
+    if sucesso:
+        print(f"Participante com código {cod_participante} cadastrado no evento {cod_evento} com sucesso!")
+    
+    input("Pressione Enter para continuar...")
