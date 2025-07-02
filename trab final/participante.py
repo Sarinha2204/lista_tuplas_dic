@@ -1,21 +1,23 @@
 participantes = []
 
 def Cadastrar_participante(cod, nome, email, preferencias_tema):
-    participante = {'nome': nome, 'email': email, 'cod_participante': cod, 'preferencias_tema': preferencias_tema}
+    participante = {
+        'nome': nome,
+        'email': email,
+        'cod_participante': cod,
+        'preferencias_tema': preferencias_tema
+    }
     if consultar_participante(cod):
         return False
     else:
         participantes.append(participante)
         return True
-        
-
 
 def listar_participantes():
     if len(participantes) == 0:
         print("Nenhum participante cadastrado.")
     else:
         print("Lista de Participantes:")
-        
         for participante in participantes:
             print(f"Código: {participante['cod_participante']}, Nome: {participante['nome']}, email: {participante['email']}, Preferências Temáticas: {participante['preferencias_tema']}")
 

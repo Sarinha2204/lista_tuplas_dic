@@ -1,7 +1,9 @@
+from participante import consultar_participante
+
 eventos = []
 
-def Cadastrar_evento(nome, cod_evento, tema_central, limite, status, data_evento):
-    evento = {'nome': nome, 'cod_evento': cod_evento, 'tema_central': tema_central, 'limite': limite, 'status': status, 'data_evento': data_evento}
+def Cadastrar_evento(nome, cod_evento, tema_central, tipo_evento, limite, status, data_evento):
+    evento = {'nome': nome, 'cod_evento': cod_evento, 'tema_central': tema_central,'tipo_evento': tipo_evento, 'limite': limite, 'status': status, 'data_evento': data_evento}
     if consultar_evento(cod_evento):
         return False
     else:
@@ -60,12 +62,23 @@ def consultar_eventos_por_status(status):
 
 def cadastrar_participante_em_evento(cod_evento, cod_participante):
     print('           Cadastrar Participante em Evento           ')
-    cod_evento = input("Digite o código do evento: ").strip()
-    cod_participante = input("Digite o código do participante: ").strip()
-    
-    sucesso = cadastrar_participante_em_evento(cod_evento, cod_participante)
-    
-    if sucesso:
-        print(f"Participante com código {cod_participante} cadastrado no evento {cod_evento} com sucesso!")
-    
-    input("Pressione Enter para continuar...")
+    evento = consultar_evento(cod_evento)
+    participante = consultar_participante(cod_participante)
+
+    if not evento or not participante:
+        print("Evento ou participante não encontrado.")
+        return False
+
+    # adiciona participante ao evento
+    if 'participantes' not in evento:
+        evento['participantes'] = []
+    if cod_participante not in evento['participantes']:
+        evento['participantes'].append(cod_participante)
+
+    # adiciona evento ao participante
+    if 'eventos' not in participante:
+        participante['eventos'] = []
+    if cod_evento not in participante['eventos']:
+        participante['eventos'].append(cod_evento)
+
+    return True

@@ -1,6 +1,8 @@
 from clear import clear
 from participante import Cadastrar_participante, listar_participantes, consultar_participante, remover_participante, atualizar_participante, listar_participantes_por_evento
 from evento import Cadastrar_evento, listar_evento, consultar_evento, remover_evento, atualizar_evento, consultar_eventos_por_status, cadastrar_participante_em_evento
+from estatisticas import temas_frequentes, participantes_mais_ativos
+
 
 def Menu():
     while True:
@@ -11,8 +13,9 @@ def Menu():
         print("3 - Remover")
         print("4 - Atualizar Informações")
         print("5 - Consultar")
+        print("6 - Verificar Estatísticas ")
         print("0 - Sair")
-        op = opcao(5)
+        op = opcao(6)
 
         if op == 1:
             cadastrar()
@@ -24,6 +27,8 @@ def Menu():
             atualizar()
         elif op == 5:
             consultar()
+        elif op == 6:
+            estatisticas()
         elif op == 0:
             break
 
@@ -114,15 +119,16 @@ def cadastrar_participante():
 
 def cadastrar_evento():
     print('            Cadastro de Evento            ')
-    cod_evento = input("Digite o código do evento: ").strip()
-    nome = input("Digite o nome único do evento: ").strip()
-    tema_central = input("Digite o tema do evento: ").strip()
-    data_realizacao = input("Digite a data de realização do evento (DD/MM/AAAA): ").strip()
+    cod_evento = input("Digite o código do evento: ")
+    nome = input("Digite o nome único do evento: ")
+    tema_central = input("Digite o tema do evento: ")
+    tipo_evento  = input("Digite o tipo de evento: ")
+    data_realizacao = input("Digite a data de realização do evento (DD/MM/AAAA): ")
     limite = input("Digite o limite de participantes (deixe em branco se não houver): ").strip()
     limite = int(limite) if limite.isdigit() else None
     status = 'ativo' 
 
-    sucesso = Cadastrar_evento(cod_evento, nome, tema_central, limite, status, data_realizacao)
+    sucesso = Cadastrar_evento(cod_evento, nome, tema_central, tipo_evento, limite, status, data_realizacao)
     if sucesso:
         print(f"Evento {nome} cadastrado com sucesso!")
     else:
@@ -185,11 +191,25 @@ def atualizar():
             atualizar_evento(nome, tema_central=tema_central if tema_central else None, limite=limite, status=status if status else None, data_realizacao=data_realizacao if data_realizacao else None)
             print("Evento atualizado com sucesso.")
         else:
-            print("Evento não encontrado.")
-    input("Pressione Enter para continuar...")
+            print("Evento não encontrado.") 
+    
+def estatisticas():
+    print('            Estatísticas dos Eventos e Participantes            ')
+    print("1 - Temas mais frequentes")
+    print("2 - Participantes mais ativos")
+    print("0 - Voltar")
+    op = opcao(2)
+    if op == 1:
+        temas_frequentes()
+    elif op == 2:
+        participantes_mais_ativos()
+    else:
+        pass
+    input("Precione Enter para continuar...")
     clear()
 
-def consultar_participante(cod_participante):
+
+def Consultar_participante(cod_participante):
     cod_participante = input("Digite o código do participante: ").strip()
     participante = consultar_participante(cod_participante)
     if participante:
