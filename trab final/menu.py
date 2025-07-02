@@ -241,4 +241,3 @@ def consultar_evento_por_status():
     clear()
 
 
-

@@ -52,4 +52,17 @@ funcao_completa("v1", "v2", "extra1", "extra2", nome= "sara", idade = 18)
 #implementar umac calculadora que leia dois tipos (soma, multiplicação), lista de números, 
 #exibir_detalhes= True, caso seja false retornar o resultado final
 
-def soma_multi()
+def calculadora(tipo, numeros, exibir_detalhes=False):
+    if tipo == "soma":
+        resultado = sum(numeros)
+    elif tipo == "multiplicacao":
+        resultado = reduce(lambda x, y: x * y, numeros)
+    else:
+        raise ValueError("Tipo inválido. Use 'soma' ou 'multiplicacao'.")
+
+    if exibir_detalhes:
+        print(f"Tipo: {tipo}")
+        print(f"Números: {numeros}")
+        print(f"Resultado: {resultado}")
+
+    return resultado
