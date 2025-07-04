@@ -66,7 +66,10 @@ def listar():
         elif op == 2:
             listar_participantes()
         elif op == 3:
-            listar_participantes_por_evento()
+            cod_evento = input("Digite o código do evento: ").strip()
+            listar_participantes_por_evento(cod_evento)
+            input("Pressione Enter para continuar...")
+            clear()
         elif op == 0:
             break
 
@@ -157,8 +160,10 @@ def remover():
             print("Evento removido com sucesso.")
         else:
             print("Evento não encontrado.")
-    input("Pressione Enter para continuar...")
-    clear()
+        clear()
+    elif op == 0:
+        pass
+    input("Precione Enter para continuar...")
 
 def atualizar():
     print('            Atualizar            ')
@@ -184,11 +189,12 @@ def atualizar():
         if evento:
             print(f"Atualizando evento: {evento['nome']}")
             tema_central = input("Novo tema (deixe em branco para manter): ").strip()
+            tipo_evento = input("Digite o no tipo de evento(Deixe em branco para manter): ")
             limite = input("Novo limite de participantes (deixe em branco para manter): ").strip()
             limite = int(limite) if limite.isdigit() else None
             status = input("Novo status (ativo, cancelado, deixe em branco para manter): ").strip()
             data_realizacao = input("Nova data de realização (DD/MM/AAAA, deixe em branco para manter): ").strip()
-            atualizar_evento(nome, tema_central=tema_central if tema_central else None, limite=limite, status=status if status else None, data_realizacao=data_realizacao if data_realizacao else None)
+            atualizar_evento(nome, tema_central=tema_central if tema_central else None, tipo_evento=tipo_evento if tipo_evento else None, limite=limite, status=status if status else None, data_realizacao=data_realizacao if data_realizacao else None)
             print("Evento atualizado com sucesso.")
         else:
             print("Evento não encontrado.") 
@@ -203,9 +209,9 @@ def estatisticas():
         temas_frequentes()
     elif op == 2:
         participantes_mais_ativos()
-    else:
+    elif op == 0:
         pass
-    input("Precione Enter para continuar...")
+    input("Pressione Enter para continuar...")
     clear()
 
 
@@ -230,6 +236,8 @@ def consultar_evento_por_codigo():
     if evento:
         print(f"Código: {evento['cod']}")
         print(f"Nome: {evento['nome']}")
+        print(f"Tema Central do Evento: {evento['tema_central']}")
+        print(f"Tipo de Evento: {evento['tipo_evento']}")
         print(f"Data de Realização: {evento['data_realizacao']}")
         print(f"Limite de Participantes: {evento['limite']}")
         print(f"Status: {evento['status']}")
@@ -244,15 +252,15 @@ def verificar_em_evento(cod_evento):
         return cadastrar_evento[cod_evento]
 
 
-def listar_participantes_em_evento():
-    cod_evento = int(input("Digite o código do evento: "))
-    if verificar_em_evento(cod_evento):
-        print("Evento: ", cadastrar_evento[cod_evento]['nome'])
-        listar_participantes(cod_evento)
-    else: 
-        print("Evento não encontrado.")
-    input("Pressione Enter para continuar...")
-    clear()
+# def listar_participantes_por_evento(cod_evento):
+#     cod_evento = int(input("Digite o código do evento: "))
+#     if verificar_em_evento(cod_evento):
+#         print("Evento: ", cadastrar_evento[cod_evento]['nome'])
+#         listar_participantes(cod_evento)
+#     else: 
+#         print("Evento não encontrado.")
+#     input("Pressione Enter para continuar...")
+#     clear()
 
 def consultar_evento_por_status():
     status = input("Digite o status do evento (ativo, cancelado): ").strip()

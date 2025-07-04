@@ -1,6 +1,9 @@
 from participante import consultar_participante
 
-eventos = []
+eventos = [{'nome': 'Programando Inteligência Artificial', 'cod_evento': 1, 'tema_central': 'Inteligência Artificial','tipo_evento': 'palestra', 'limite': 50, 'status': 'ativo', 'data_evento': '10/10/2025'},
+           {'nome': 'Linguagem de Marcação através de Inteligência Artificial', 'cod_evento': 2, 'tema_central': 'Inteligência Artificial','tipo_evento': 'WorskShop', 'limite': 25, 'status': 'ativo', 'data_evento': '22/07/2025'},
+           {'nome': 'Como fazer a programação na Robótica', 'cod_evento': 3, 'tema_central': 'Inteligência Artificial','tipo_evento': 'WorskShop', 'limite': 25, 'status': 'ativo', 'data_evento': '22/07/2025'}
+]
 
 def Cadastrar_evento(nome, cod_evento, tema_central, tipo_evento, limite, status, data_evento):
     evento = {'nome': nome, 'cod_evento': cod_evento, 'tema_central': tema_central,'tipo_evento': tipo_evento, 'limite': limite, 'status': status, 'data_evento': data_evento}
@@ -17,6 +20,7 @@ def listar_evento():
         print("Lista de Eventos:")
         for evento in eventos:
             print(f" Código: {evento['cod_evento']}, Nome: {evento['nome']}, Tema Central: {evento['tema_central']}, Data de Realização do Evento: {evento['data_evento']}")
+
 def consultar_evento(cod_evento):
     for evento in eventos:
         if evento['cod_evento'] == cod_evento:
@@ -60,8 +64,19 @@ def consultar_eventos_por_status(status):
             print(f" - {evento['nome']} (Código: {evento['cod_evento']})")
 
 
-def cadastrar_participante_em_evento(cod_evento, cod_participante):
+def cadastrar_participante_em_evento():
     print('           Cadastrar Participante em Evento           ')
+
+    cod_evento_input = input("Digite o código do evento: ").strip()
+    cod_participante_input = input("Digite o código do participante: ").strip()
+
+    if not cod_evento_input.isdigit() or not cod_participante_input.isdigit():
+        print("Código inválido! Ambos devem ser números.")
+        return False
+
+    cod_evento = int(cod_evento_input)
+    cod_participante = int(cod_participante_input)
+    
     evento = consultar_evento(cod_evento)
     participante = consultar_participante(cod_participante)
 
@@ -69,16 +84,15 @@ def cadastrar_participante_em_evento(cod_evento, cod_participante):
         print("Evento ou participante não encontrado.")
         return False
 
-    # adiciona participante ao evento
     if 'participantes' not in evento:
         evento['participantes'] = []
     if cod_participante not in evento['participantes']:
         evento['participantes'].append(cod_participante)
 
-    # adiciona evento ao participante
     if 'eventos' not in participante:
         participante['eventos'] = []
     if cod_evento not in participante['eventos']:
         participante['eventos'].append(cod_evento)
 
+    print("Participante cadastrado no evento com sucesso.")
     return True
