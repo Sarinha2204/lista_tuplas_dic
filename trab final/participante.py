@@ -36,16 +36,19 @@ def remover_participante(cod_participante):
 
 def atualizar_participante(cod_participante, nome=None, email=None, preferencias=None):
     participante = consultar_participante(cod_participante)
-    if participante:
-        if nome:
-            participante['nome'] = nome
-        if email:
-            participante['email'] = email
-        if preferencias is not None:
-            participante['preferencias_tema'] = preferencias
-        print(f"Participante com código {cod_participante} atualizado com sucesso.")
-    else:
+    if not participante:
         print(f"Participante com código {cod_participante} não encontrado.")
+        return
+
+    if nome:
+        participante['nome'] = nome
+    if email:
+        participante['email'] = email
+    if preferencias is not None:
+        participante['preferencias_tema'] = preferencias
+
+    print(f"Participante '{participante['nome']}' atualizado com sucesso.")
+
 
 
 def listar_participantes_por_evento(cod_evento):

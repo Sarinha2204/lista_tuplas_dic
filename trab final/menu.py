@@ -84,11 +84,11 @@ def consultar():
         op = opcao(3)
 
         if op == 1:
-            consultar_participante()
+            Consultar_participante()
         elif op == 2:
             consultar_evento_por_codigo()
         elif op == 3:
-            consultar_eventos_por_status()
+            consultar_evento_por_status()
         elif op == 0:
             break
 
@@ -176,13 +176,21 @@ def atualizar():
         participante = consultar_participante(cod_participante)
         if participante:
             print(f"Atualizando participante: {participante['nome']}")
+            nome = input("Novo nome (deixe em branco para manter): ").strip()
             email = input("Novo e-mail (deixe em branco para manter): ").strip()
             preferencias = input("Novas preferências temáticas (separadas por vírgula, deixe em branco para manter): ").strip()
             prefs = [p.strip() for p in preferencias.split(',')] if preferencias else None
-            atualizar_participante(cod_participante, email=email if email else None, preferencias=prefs)
+            atualizar_participante(
+                cod_participante,
+                nome=nome if nome else None,
+                email=email if email else None,
+                preferencias=prefs
+            )
             print("Participante atualizado com sucesso.")
         else:
             print("Participante não encontrado.")
+        input("Pressione Enter para continuar...")
+        clear()
     elif op == 2:
         nome = input("Digite o nome do evento: ").strip()
         evento = consultar_evento(nome)
@@ -215,36 +223,51 @@ def estatisticas():
     clear()
 
 
-def Consultar_participante(cod_participante):
+def Consultar_participante():
     cod_participante = input("Digite o código do participante: ").strip()
+    
+    # garantir que o código seja convertido corretamente para int
+    if cod_participante.isdigit():
+        cod_participante = int(cod_participante)
+    else:
+        print("Código inválido. Deve ser um número.")
+        return
+
     participante = consultar_participante(cod_participante)
     if participante:
         print(f"Código: {participante['cod_participante']}")
         print(f"Nome: {participante['nome']}")
         print(f"E-mail: {participante['email']}")
-        print(f"Preferências Temáticas: {', '.join(participante['preferencias_tema'])}")
-        print(f"Eventos inscritos: {', '.join(participante.get('eventos', []))}")
+        preferencias = participante.get('preferencias_tema', [])
+        if isinstance(preferencias, list):
+            print(f"Preferências Temáticas: {', '.join(preferencias)}")
+        else:
+            print(f"Preferências Temáticas: {preferencias}")
+        eventos = participante.get('eventos', [])
+        print(f"Código do(s) evento(s) inscritos: {', '.join(map(str, eventos)) if eventos else 'Nenhum'}")
     else:
         print("Participante não encontrado.")
     input("Pressione Enter para continuar...")
     clear()
 
 
+
 def consultar_evento_por_codigo():
     cod = int(input("Digite o código do evento: "))
     evento = consultar_evento(cod)
     if evento:
-        print(f"Código: {evento['cod']}")
+        print(f"Código: {evento['cod_evento']}")
         print(f"Nome: {evento['nome']}")
         print(f"Tema Central do Evento: {evento['tema_central']}")
         print(f"Tipo de Evento: {evento['tipo_evento']}")
-        print(f"Data de Realização: {evento['data_realizacao']}")
+        print(f"Data de Realização: {evento['data_evento']}")
         print(f"Limite de Participantes: {evento['limite']}")
         print(f"Status: {evento['status']}")
     else:
         print("Evento não encontrado.")
     input("Pressione Enter para continuar...")
     clear()
+
 
 
 def verificar_em_evento(cod_evento):

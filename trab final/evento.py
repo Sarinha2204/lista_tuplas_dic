@@ -32,18 +32,27 @@ def remover_evento(cod_evento):
     eventos = [e for e in eventos if e['cod_evento'] != cod_evento]
     print(f"Evento com código {cod_evento} removido com sucesso.")
     
-def atualizar_evento(cod_evento, nome=None, evento=None, cpf=None):
+def atualizar_evento(cod_evento, nome=None, tema_central=None, tipo_evento=None, limite=None, status=None, data_evento=None):
     evento = consultar_evento(cod_evento)
-    if evento:
-        if nome:
-            evento['nome'] = nome
-        if evento:
-            evento['evento'] = evento
-        if cpf:
-            evento['cpf'] = cpf
-        print(f"Evento com código {cod_evento} atualizado com sucesso.")
-    else:
+    if not evento:
         print(f"Evento com código {cod_evento} não encontrado.")
+        return
+
+    if nome:
+        evento['nome'] = nome
+    if tema_central:
+        evento['tema_central'] = tema_central
+    if tipo_evento:
+        evento['tipo_evento'] = tipo_evento
+    if limite is not None:
+        evento['limite'] = limite
+    if status:
+        evento['status'] = status
+    if data_evento:
+        evento['data_evento'] = data_evento
+
+    print(f"Evento '{evento['nome']}' atualizado com sucesso.")
+
 
 def listar_eventos_por_tema(tema_central):
     eventos_filtrados = [evento for evento in eventos if evento['tema_central'] == tema_central]
